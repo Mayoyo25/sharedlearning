@@ -7,7 +7,7 @@ Pick a template, edit right on the canvas, and export a crisp PNG, JPG or PDF si
 - **Live site:** https://sharedlearning.online
 - **Docs:** [`docs.html`](docs.html)
 
-![SharedLearning editor](docs/screenshot.jpg)
+![SharedLearning editor](screenshot.jpg)
 
 ## Features
 
@@ -28,7 +28,7 @@ Pick a template, edit right on the canvas, and export a crisp PNG, JPG or PDF si
 There is no build step. It is plain static HTML.
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/sharedlearning.git
+git clone https://github.com/Mayoyo25/sharedlearning.git
 cd sharedlearning
 python3 -m http.server 8080
 # open http://localhost:8080
@@ -117,7 +117,7 @@ Ideas that would be welcome: more templates, more platform icons, a text-box ann
 
 SharedLearning is free, with no ads and no paywall. If it saves you time, you can help cover hosting and maintenance:
 
-- [Sponsor on GitHub](https://github.com/sponsors/YOUR-USERNAME)
+- [Sponsor on GitHub](https://github.com/sponsors/Mayoyo25)
 - [Support on Ko-fi](https://ko-fi.com/franklinmayoyo)
 - Star the repo, share a graphic you made, or send a pull request.
 
