@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Documentation — SharedLearning</title>
+<meta name="description" content="How to use SharedLearning: templates, editing, icons and logos, handles, annotations, JSON import, export, shortcuts and self-hosting.">
+<meta name="theme-color" content="#f05a36">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23f05a36'/%3E%3Cpath d='M9 10h14M9 16h14M9 22h9' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root { color-scheme: light; --ink:#172033; --muted:#5b6678; --line:#e4e7ec; --bg:#faf8f4; --card:#fff; --brand:#f05a36; --brand-d:#d03f1b; }
+  @media (prefers-color-scheme: dark) { :root { color-scheme: dark; --ink:#f2f4f7; --muted:#a3adbf; --line:#2a3345; --bg:#0d1320; --card:#151d2e; --brand:#ff6a45; --brand-d:#ff8566; } }
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; scroll-padding-top:84px; }
+  body { margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif; color:var(--ink); background:var(--bg); line-height:1.65; }
+  a { color:var(--brand); } a:hover { color:var(--brand-d); }
+  code { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.88em; background:rgba(127,127,127,.15); padding:1px 6px; border-radius:6px; }
+  kbd { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.82em; border:1px solid var(--line); border-bottom-width:2px; background:var(--card); border-radius:6px; padding:1px 6px; white-space:nowrap; }
+  .top { position:sticky; top:0; z-index:30; background:color-mix(in srgb, var(--bg) 90%, transparent); backdrop-filter:blur(10px); border-bottom:1px solid var(--line); }
+  .top .in { max-width:1120px; margin:0 auto; padding:0 20px; height:60px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+  .brand { font-weight:850; letter-spacing:-.04em; font-size:20px; text-decoration:none; color:var(--ink); } .brand span { color:var(--brand); } .brand small { font-size:13px; font-weight:600; color:var(--muted); letter-spacing:0; margin-left:8px; }
+  .btn { display:inline-flex; align-items:center; height:38px; padding:0 16px; border-radius:10px; background:var(--brand); color:#fff; font:700 14px Inter,sans-serif; text-decoration:none; }
+  .btn:hover { background:var(--brand-d); color:#fff; }
+  :focus-visible { outline:3px solid #3b82f6; outline-offset:2px; }
+  .layout { max-width:1120px; margin:0 auto; padding:0 20px; display:grid; grid-template-columns:230px minmax(0,1fr); gap:44px; }
+  aside { position:sticky; top:60px; align-self:start; max-height:calc(100vh - 60px); overflow:auto; padding:28px 0; }
+  aside p { font-size:12px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin:0 0 8px; }
+  aside a { display:block; padding:5px 10px; border-left:2px solid var(--line); text-decoration:none; color:var(--muted); font-size:14px; font-weight:600; }
+  aside a:hover { color:var(--ink); border-left-color:var(--muted); }
+  aside a.on { color:var(--brand); border-left-color:var(--brand); }
+  main { padding:32px 0 80px; min-width:0; }
+  h1 { font-size:clamp(32px,5vw,46px); letter-spacing:-.04em; line-height:1.08; margin:0 0 10px; font-weight:900; }
+  .lead { color:var(--muted); font-size:18px; margin:0 0 10px; max-width:38em; }
+  section { padding-top:38px; border-top:1px solid var(--line); margin-top:38px; }
+  main > .lead + section { margin-top:30px; }
+  h2 { font-size:26px; letter-spacing:-.03em; margin:0 0 12px; }
+  h3 { font-size:18px; margin:22px 0 6px; letter-spacing:-.02em; }
+  p, li, dd { font-size:16px; } ul, ol { padding-left:22px; } li { margin:5px 0; }
+  .note { border-left:3px solid var(--brand); background:var(--card); padding:10px 14px; border-radius:0 10px 10px 0; font-size:15px; color:var(--muted); }
+  .tbl { overflow-x:auto; border:1px solid var(--line); border-radius:12px; background:var(--card); margin:14px 0; }
+  table { width:100%; border-collapse:collapse; font-size:14.5px; min-width:480px; }
+  th, td { text-align:left; padding:10px 14px; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); }
+  tbody tr:last-child td { border-bottom:0; }
+  pre { background:#0a0f1c; color:#d6dcea; border-radius:12px; padding:16px 18px; overflow-x:auto; font:13px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace; margin:12px 0; }
+  dt { font-weight:700; margin-top:14px; } dd { margin:2px 0 0; color:var(--muted); }
+  footer { border-top:1px solid var(--line); padding:24px 20px 40px; text-align:center; font-size:14px; color:var(--muted); }
+  footer a { color:var(--muted); }
+  @media (max-width:860px) { .layout { grid-template-columns:1fr; gap:0; } aside { position:static; max-height:none; padding:18px 0 0; } aside .toc { display:flex; flex-wrap:wrap; gap:6px; } aside a { border:1px solid var(--line); border-radius:999px; padding:4px 12px; font-size:13px; } aside a.on { border-color:var(--brand); } .brand small { display:none; } }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto; } }
+</style>
+</head>
+<body>
+<header class="top"><div class="in">
+  <a class="brand" href="./" aria-label="SharedLearning home">Shared<span>Learning</span><small>Docs</small></a>
+  <a class="btn" href="editor.html">Open editor</a>
+</div></header>
+<div class="layout">
+  <aside aria-label="On this page"><p>On this page</p><div class="toc"><a href="#quick">Quick start</a><a href="#templates">Templates and sizes</a><a href="#editing">Editing text</a><a href="#items">Items and reordering</a><a href="#icons">Icons and logos</a><a href="#style">Colors and typefaces</a><a href="#footer">Footer and handles</a><a href="#format">Highlighting text</a><a href="#annotate">Annotating</a><a href="#import">Importing</a><a href="#export">Exporting</a><a href="#shortcuts">Keyboard shortcuts</a><a href="#developers">For developers</a><a href="#privacy">Privacy and data</a><a href="#trouble">Troubleshooting</a><a href="#support">Support the project</a></div></aside>
+  <main>
+    <h1>How to use SharedLearning</h1>
+    <p class="lead">Everything you need to make, style and export a list graphic, plus the details for developers who want to host or automate it.</p>
+    
+<section id="quick"><h2>Quick start</h2>
+<ol>
+<li>Open the <a href="index.html#templates">template gallery</a> and click <b>Use template</b>, or open the <a href="editor.html">blank editor</a>.</li>
+<li>Click any text on the canvas and type. Press <kbd>Enter</kbd> in an item to add another one.</li>
+<li>Drag the number badge of an item up or down to reorder.</li>
+<li>Click <b>Download PNG</b> in the top right. Use the arrow next to it for JPG, PDF, copy to clipboard, or JSON.</li>
+</ol>
+<p class="note">The editor shows a short guided tour the first time you open it. Replay it any time with the <b>?</b> button in the top bar, or <b>Take the tour</b> in the tips strip.</p>
+</section>
+
+<section id="templates"><h2>Templates and sizes</h2>
+<p>Open <b>Template &amp; size</b> in the sidebar. Six layouts are available: Editorial, Dark Tech, Bold Cards, Clean Split, Magazine and Neon List. Choosing one also applies its default colors and type sizes.</p>
+<div class="tbl"><table><thead><tr><th>Size</th><th>Ratio</th><th>Export (px)</th><th>Use for</th></tr></thead><tbody>
+<tr><td>Portrait</td><td>4:5</td><td>1080 × 1350</td><td>LinkedIn, Instagram, Facebook feeds</td></tr>
+<tr><td>Square</td><td>1:1</td><td>1080 × 1080</td><td>Any feed, X</td></tr>
+<tr><td>Story</td><td>9:16</td><td>1080 × 1920</td><td>Stories, Reels, TikTok, Shorts</td></tr>
+<tr><td>Tall</td><td>2:3</td><td>1080 × 1620</td><td>Pinterest</td></tr>
+<tr><td>Wide</td><td>16:9</td><td>1920 × 1080</td><td>Slides, YouTube thumbnails</td></tr>
+<tr><td>Banner</td><td>1.91:1</td><td>2060 × 1080</td><td>Link previews, cover images</td></tr></tbody></table></div>
+<p>On wide formats, or when a list is long, items flow into two or three columns automatically. If everything still does not fit, the text shrinks until it does.</p>
+</section>
+
+<section id="editing"><h2>Editing text</h2>
+<p>Everything on the canvas is editable in place: the top label, headline, subtitle, and each item's title and description. Pasted text is inserted as plain text on one line.</p>
+<ul>
+<li>Use <b>Elements</b> in the sidebar to hide the top label, numbers, descriptions or the footer.</li>
+<li>If your headline starts with "Top" and a number, the number updates when you add or remove items.</li>
+<li>Your work autosaves in this browser. The top bar shows <i>Saved on this device</i> when it is done.</li>
+</ul></section>
+
+<section id="items"><h2>Items and reordering</h2>
+<ul>
+<li><b>Add:</b> press <kbd>Enter</kbd> inside an item, or use <b>+ Add item</b> below the canvas. The limit is 15 items.</li>
+<li><b>Reorder:</b> drag the number badge, or press <kbd>Alt</kbd> + <kbd>↑</kbd> / <kbd>Alt</kbd> + <kbd>↓</kbd> while editing an item. On a phone, press and hold the badge briefly, then drag.</li>
+<li><b>Item toolbar:</b> hover or tap an item to see buttons for move up, move down, icon, duplicate and delete.</li>
+<li><b>Delete:</b> press <kbd>Backspace</kbd> in an empty title, or use the toolbar. At least one item is always kept.</li>
+<li><b>Paste a list:</b> <b>Import → Paste a list</b> turns one line per item into items. Use <code>Title - description</code>, <code>Title: description</code> or <code>Title | description</code> to add a description. Bullets and numbers are removed. Choose to replace the current items or add to them.</li>
+</ul></section>
+
+<section id="icons"><h2>Icons and logos</h2>
+<p>Each item can have an emoji, a brand logo or your own image. Click the icon in an item, or use the icon button on the item toolbar.</p>
+<ul>
+<li><b>Search logos:</b> type a brand name such as Notion, Figma or Stripe. Results come from the open Iconify logo libraries.</li>
+<li><b>Match brand logos:</b> in <b>Icons</b> in the sidebar, this looks up every item title and fills the icons in one go. Titles that are not brands are skipped.</li>
+<li><b>Your own image:</b> drop an image on an item, paste one while an item is selected, or use <b>Upload logos…</b> to fill several items in order. Images are resized to a small size and stored in the page.</li>
+<li><b>Empty slots:</b> an item with no icon shows a faint <b>+</b> in the editor so you can click it. The <b>+</b> never appears in exports.</li>
+<li><b>Show or remove all:</b> use <b>Show item icons</b> to hide every icon at once, or <b>Remove all icons</b> to clear them.</li>
+<li><b>Brand mark:</b> the sidebar's <b>Brand mark</b> adds a small symbol or your own logo at the right end of the footer.</li>
+</ul>
+<p class="note">Brand logos belong to their owners. Check each brand's guidelines before using them commercially.</p></section>
+
+<section id="style"><h2>Colors and typefaces</h2>
+<ul>
+<li><b>Colors:</b> choose a palette (Warm, Ocean, Forest, Violet, Sunset, Crimson, Mono, Midnight, Neon), or set the accent, background and text colors yourself.</li>
+<li><b>Type &amp; size:</b> pick from 49 typefaces, 47 of them open-source Google Fonts. Search by name or browse by group: sans serif, bold and display, serif, monospace, handwritten and system. Fonts load when you pick them.</li>
+<li><b>Sizes:</b> sliders set the headline, item, footer and icon sizes. Auto-fit still shrinks the text if the list would overflow.</li>
+</ul></section>
+
+<section id="footer"><h2>Footer and handles</h2>
+<p>Add up to four handles under the list, for example your LinkedIn and X names. Each can have a platform icon.</p>
+<ul>
+<li>Edit them on the canvas, or in <b>Footer &amp; handles</b> in the sidebar.</li>
+<li>Click a platform icon to change it. Sixteen platforms are built in, including LinkedIn, X, Instagram, YouTube, TikTok, GitHub and a generic website or email icon, plus <b>None</b>.</li>
+<li>The footer is always one line. Each extra handle makes the text a little smaller, and very long handles shrink further.</li>
+<li>Press <kbd>Enter</kbd> in a handle to move to the next, or add one. <kbd>Backspace</kbd> in an empty handle removes it.</li>
+</ul></section>
+
+<section id="format"><h2>Highlighting part of a text</h2>
+<p>Select some words in the headline, subtitle, top label or an item. A small dark bar appears above the selection:</p>
+<ul>
+<li><b>Color dot:</b> sets the color of the selected words.</li>
+<li><b>Font menu:</b> sets a different typeface for just that selection, or <i>Default font</i> to go back.</li>
+<li><b>Clear:</b> removes the formatting from the selection.</li>
+</ul>
+<p>Press <kbd>Esc</kbd> or click elsewhere to close the bar. Highlights are saved and exported. They are not part of JSON import and export, which carries plain text only.</p></section>
+
+<section id="annotate"><h2>Annotating</h2>
+<p>Click <b>Annotate</b> in the top bar to open the drawing tools: line, arrow, box and circle, plus a color dot and delete.</p>
+<ul>
+<li>Pick a tool, then drag on the canvas. The tool switches off after each shape.</li>
+<li>Hold <kbd>Shift</kbd> while drawing to snap lines to 45° or make boxes and circles square.</li>
+<li>Click a shape to select it. Drag it to move, or drag an end handle to resize. Change the color dot to recolor it.</li>
+<li>Press <kbd>Delete</kbd> to remove the selected shape. <kbd>Esc</kbd> cancels a tool.</li>
+<li>Shapes undo and redo, are saved with your work, and appear in PNG, JPG and PDF exports. Selection handles do not.</li>
+</ul></section>
+
+<section id="import"><h2>Importing</h2>
+<p>Open the <b>Import</b> menu in the top bar.</p>
+<ul>
+<li><b>Paste a list:</b> one item per line.</li>
+<li><b>Paste JSON:</b> an object, a bare array of items, or a JSON-RPC 2.0 envelope.</li>
+<li><b>Upload JSON file:</b> or drop a <code>.json</code> file on the canvas.</li>
+</ul>
+<h3>JSON format</h3>
+<pre>{
+  "headline": "Top 5 Dev Tools",
+  "subtitle": "What I use daily",
+  "kicker": "The stack",
+  "template": "dark",
+  "palette": "midnight",
+  "ratio": "4:5",
+  "font": "Inter",
+  "handles": [
+    { "platform": "linkedin", "text": "@yourname" },
+    { "platform": "x", "text": "@yourname" }
+  ],
+  "show": { "icons": true, "numbers": true, "descriptions": true, "footer": true },
+  "items": [
+    { "title": "Notion", "description": "Docs and wikis", "icon": "auto" },
+    { "title": "Figma", "icon": "logos:figma" },
+    { "title": "Linear", "icon": "🚀" }
+  ]
+}</pre>
+<p>Only <code>items</code> is required. Each item needs a <code>title</code>. Other keys are optional.</p>
+<div class="tbl"><table><thead><tr><th>Key</th><th>Values</th></tr></thead><tbody>
+<tr><td><code>template</code></td><td><code>editorial</code>, <code>dark</code>, <code>cards</code>, <code>split</code>, <code>magazine</code>, <code>neon</code></td></tr>
+<tr><td><code>palette</code></td><td><code>warm</code>, <code>ocean</code>, <code>forest</code>, <code>violet</code>, <code>sunset</code>, <code>crimson</code>, <code>mono</code>, <code>midnight</code>, <code>neon</code>. Or <code>colors</code> with <code>accent</code>, <code>background</code>, <code>text</code>.</td></tr>
+<tr><td><code>ratio</code></td><td><code>4:5</code>, <code>1:1</code>, <code>9:16</code>, <code>2:3</code>, <code>16:9</code>, <code>1.91:1</code></td></tr>
+<tr><td><code>font</code></td><td>Any typeface name from the picker, such as <code>Inter</code> or <code>Playfair Display</code></td></tr>
+<tr><td><code>handles</code></td><td>Up to 4 strings, or objects with <code>platform</code> and <code>text</code>. Platforms: linkedin, x, instagram, facebook, youtube, tiktok, threads, bluesky, github, substack, medium, mastodon, pinterest, reddit, website, email. Common aliases like <code>twitter</code> work. A single <code>footer</code> string is also accepted.</td></tr>
+<tr><td>item <code>icon</code></td><td>An emoji; <code>"auto"</code> to match by title; <code>"brand:Name"</code>; an Iconify id such as <code>"logos:figma"</code> or <code>"simple-icons:notion"</code>; or an image URL or data URL</td></tr></tbody></table></div>
+<h3>JSON-RPC</h3>
+<p>For tool integrations, the same data can arrive inside a JSON-RPC 2.0 envelope. The importer reads <code>params.arguments</code>, then <code>params</code>, then <code>result</code>, and understands MCP-style <code>content[0].text</code> and <code>structuredContent</code>.</p>
+<pre>{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "tools/call",
+  "params": {
+    "name": "make_list_graphic",
+    "arguments": { "headline": "Top 3 Habits", "items": [{ "title": "Read" }, { "title": "Write" }, { "title": "Ship" }] }
+  }
+}</pre></section>
+
+<section id="export"><h2>Exporting</h2>
+<ul>
+<li><b>Download PNG:</b> the main button. Rendered at twice the design size.</li>
+<li><b>More options (the arrow):</b> <b>Copy image</b> to the clipboard, <b>Download JPG</b>, <b>Download PDF</b> (one page, sized to the graphic), and <b>Download JSON</b> to save an editable version you can import later.</li>
+<li>Editing aids such as the item toolbar, empty icon slots, annotation handles and the highlight bar never appear in an export.</li>
+</ul>
+<p class="note">Exports use the fonts loaded in your browser at that moment. If you just changed typefaces, wait a second for them to load before downloading.</p></section>
+
+<section id="shortcuts"><h2>Keyboard shortcuts</h2>
+<div class="tbl"><table><thead><tr><th>Keys</th><th>Action</th></tr></thead><tbody>
+<tr><td><kbd>Ctrl/Cmd</kbd> + <kbd>Z</kbd></td><td>Undo</td></tr>
+<tr><td><kbd>Ctrl/Cmd</kbd> + <kbd>Shift</kbd> + <kbd>Z</kbd> or <kbd>Ctrl/Cmd</kbd> + <kbd>Y</kbd></td><td>Redo</td></tr>
+<tr><td><kbd>Ctrl/Cmd</kbd> + <kbd>+</kbd> / <kbd>Ctrl/Cmd</kbd> + <kbd>−</kbd></td><td>Zoom in / out</td></tr>
+<tr><td><kbd>Ctrl/Cmd</kbd> + <kbd>0</kbd></td><td>Fit to screen</td></tr>
+<tr><td><kbd>Enter</kbd></td><td>New item (in an item) or next handle (in a handle)</td></tr>
+<tr><td><kbd>Alt</kbd> + <kbd>↑</kbd> / <kbd>Alt</kbd> + <kbd>↓</kbd></td><td>Move the item up or down</td></tr>
+<tr><td><kbd>Backspace</kbd></td><td>Remove an empty item or handle</td></tr>
+<tr><td><kbd>Delete</kbd></td><td>Delete the selected annotation</td></tr>
+<tr><td><kbd>Esc</kbd></td><td>Leave a field, close a panel, cancel a drawing tool</td></tr></tbody></table></div>
+<p>The floating zoom control can be dragged out of the way. Double-click its handle to reset its position. It is hidden on phones, where the canvas already fits the screen.</p></section>
+
+<section id="developers"><h2>For developers</h2>
+<h3>Files</h3>
+<pre>index.html    landing page and template gallery
+editor.html   the editor (one self-contained file)
+docs.html     this page
+README.md     overview and setup
+LICENSE       MIT</pre>
+<h3>Run it</h3>
+<pre>python3 -m http.server 8080
+# then open http://localhost:8080</pre>
+<p>Any static host works: GitHub Pages, Netlify, Cloudflare Pages, S3 or your own server. There is no build step. Keep the three HTML files in the same folder, because they link to each other by relative path.</p>
+<h3>Start from a template via URL</h3>
+<p><code>editor.html?start=KEY</code> loads a starter. Keys: <code>habits</code>, <code>tools</code>, <code>books</code>, <code>courses</code>, <code>exam</code>, <code>focus</code>. If there is saved work in the browser, the user is asked before it is replaced.</p>
+<h3>Scripting API</h3>
+<pre>await ListGraphic.load(jsonOrObject)   // same formats as Import; resolves true on success
+ListGraphic.get()                      // current graphic in the JSON format above
+await ListGraphic.start('tools')       // load a starter template</pre>
+<h3>Libraries and services</h3>
+<ul>
+<li><a href="https://sortablejs.github.io/Sortable/">SortableJS</a> 1.15.2 for drag reorder</li>
+<li><a href="https://html2canvas.hertzen.com/">html2canvas</a> 1.4.1 for image export</li>
+<li><a href="https://github.com/parallax/jsPDF">jsPDF</a> 2.5.1 for PDF export</li>
+<li><a href="https://fonts.google.com/">Google Fonts</a> for typefaces, loaded on demand</li>
+<li><a href="https://iconify.design/">Iconify</a> API for brand-logo search (<code>logos</code> and <code>simple-icons</code> sets)</li>
+</ul>
+<p>The three libraries load from cdnjs. To work without CDNs, download them and change the three <code>&lt;script&gt;</code> URLs in <code>editor.html</code>.</p>
+<h3>How it is built</h3>
+<ul>
+<li>Vanilla JavaScript in one function scope, with a single <code>state</code> object, a 50-step undo history and autosave to <code>localStorage</code>.</li>
+<li>The graphic is a fixed-size element scaled with a CSS transform. Export renders a clone at its natural size.</li>
+<li>Inline formatting is stored as sanitized HTML next to the plain text, and falls back to plain text if the two ever disagree.</li>
+</ul></section>
+
+<section id="privacy"><h2>Privacy and data</h2>
+<ul>
+<li>Your lists, images and annotations are stored only in your browser's local storage. Clearing site data removes them. Use <b>Download JSON</b> for a backup.</li>
+<li>There is no account and no analytics in the code. Nothing you type is sent to a server by this app.</li>
+<li>Network requests: the page loads libraries from cdnjs and fonts from Google Fonts. Logo search and <b>Match brand logos</b> send the name you searched to the Iconify API and download the matching logo.</li>
+</ul></section>
+
+<section id="trouble"><h2>Troubleshooting</h2>
+<dl>
+<dt>Logos are not found, or "icon service unreachable"</dt><dd>Logo search needs access to <code>api.iconify.design</code>. Check your connection or ad blocker, or add an image yourself.</dd>
+<dt>The exported text looks like a different font</dt><dd>The typeface had not finished loading. Wait a second after choosing it, then export again.</dd>
+<dt>My work disappeared</dt><dd>Work lives in this browser's storage. Private windows, a different browser or cleared site data start fresh. Download JSON regularly to keep a copy.</dd>
+<dt>Copy image does not work</dt><dd>Some browsers limit clipboard images. Use Download PNG instead.</dd>
+<dt>The text is very small</dt><dd>Auto-fit shrinks text to fit long lists. Remove descriptions, use a wider or taller size, or reduce the number of items.</dd>
+<dt>Something looks broken after an update</dt><dd>Hard refresh the page. If saved work is the cause, clear this site's local storage and re-import your JSON.</dd>
+</dl></section>
+
+<section id="support"><h2>Support the project</h2>
+<p>SharedLearning is free and open source, with no ads and no paywall. If it is useful to you, you can help cover hosting and maintenance:</p>
+<ul>
+<li><a href="https://github.com/sponsors/YOUR-USERNAME">Sponsor on GitHub</a></li>
+<li><a href="https://ko-fi.com/franklinmayoyo">Support on Ko-fi</a></li>
+<li>Report a bug or send a pull request on <a href="https://github.com/YOUR-USERNAME/sharedlearning">GitHub</a>.</li>
+</ul></section>
+
+  </main>
+</div>
+<footer>SharedLearning is open source under the MIT license. <a href="https://github.com/YOUR-USERNAME/sharedlearning">GitHub</a> · <a href="https://github.com/sponsors/YOUR-USERNAME">Support</a> · <a href="./">Home</a> · <a href="editor.html">Editor</a></footer>
+<script>
+  const links = [...document.querySelectorAll('aside a')], secs = links.map(a => document.querySelector(a.getAttribute('href')));
+  const io = new IntersectionObserver(es => { es.forEach(e => { if (e.isIntersecting) links.forEach(l => l.classList.toggle('on', l.getAttribute('href') === '#' + e.target.id)); }); }, {rootMargin:'-80px 0px -70% 0px'});
+  secs.forEach(s => s && io.observe(s));
+</script>
+</body>
+</html>
